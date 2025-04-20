@@ -1,0 +1,4 @@
+Sitemap: https://www.hazoveu.ru/sitemap.xml
+User-agent: *
+Allow: /save-kirill-kozlov.html
+Disallow: /donate.html
