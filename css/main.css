@@ -33,7 +33,7 @@ img {
 }
 
 .disclaimer {
-  color: rgba(0, 0, 0, 0.25) !important;
+  color: rgba(0, 0, 0, 0.01) !important;
 }
 .title-margin {
   margin-top: 1em;
