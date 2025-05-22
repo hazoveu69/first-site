@@ -58,6 +58,43 @@
   </head>
 
   <body>
+    <!-- Модальное окно -->
+    <div
+      class="modal fade"
+      id="termsModal"
+      tabindex="-1"
+      aria-labelledby="termsModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="termsModalLabel">
+              Условия использования
+            </h5>
+          </div>
+          <div class="modal-body">
+            Пожалуйста, ознакомьтесь с нашими
+            <a href="/terms">условиями пользования сайтом</a> и подтвердите
+            согласие.
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+              id="declineBtn"
+            >
+              Отказаться
+            </button>
+            <button type="button" class="btn btn-primary" id="agreeBtn">
+              Согласен
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Конец окна -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container">
         <!-- <a class="navbar-brand p-0" href="/"> -->
@@ -127,5 +164,38 @@
       нужды и развитие сайта. Сайт не преследует цели кого-либо оскорбить
       воспринимаете все что здесь размещено как шутку!
     </h6> -->
+    <script>
+      // Функция для показа модального окна, если согласие не было дано
+      window.addEventListener("load", () => {
+        const termsModal = new bootstrap.Modal(
+          document.getElementById("termsModal"),
+          {
+            backdrop: "static",
+            keyboard: false,
+          }
+        );
+
+        // Показываем модалку, если пользователь не дал согласие
+        if (!localStorage.getItem("termsAccepted")) {
+          termsModal.show();
+
+          document.getElementById("agreeBtn").addEventListener("click", () => {
+            localStorage.setItem("termsAccepted", "true");
+            termsModal.hide();
+          });
+
+          document
+            .getElementById("declineBtn")
+            .addEventListener("click", () => {
+              // Блокируем сайт или перенаправляем
+              document.body.innerHTML = `
+        <div class="container mt-5 text-center">
+          <h1 class="text-danger">Доступ запрещён</h1>
+          <p>Вы отказались от условий использования. Дальнейшее использование сайта невозможно.</p>
+        </div>`;
+            });
+        }
+      });
+    </script>
   </body>
 </html>
